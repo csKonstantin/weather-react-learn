@@ -1,0 +1,30 @@
+:root {
+  --timing-default: 0.05s;
+
+  --font-general: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+
+  --color-primary: #4799e3;
+  --color-white: #fff;
+  --color-black: #000;
+  --color-gray: #dfdfdf;
+  --color-gray2: #8c8c8c;
+  --color-gray3: #9e9e9e;
+  --color-gray4: #ccc;
+  --color-gray5: #f2f2f2;
+  --color-gray6: #f9f9f9;
+
+  --color-accent-line: rgba(0, 0, 0, 0.05);
+  --color-accent-line2: rgba(0, 0, 0, 0.38);
+  --color-accent-line3: rgba(71, 153, 227, 0.38);
+
+  --color-error: #c84235;
+  --color-error2: rgba(200, 66, 53, 0.38);
+  --color-error3: rgba(255, 240, 238, 0.95);
+  --color-warning: #e88d55;
+  --color-warning2: rgba(255, 236, 224, 0.95);
+  --color-info: rgb(30, 167, 253);
+  --color-info2: rgba(234, 247, 255, 0.95);
+  --color-success: #60ac55;
+  --color-success2: rgba(237, 255, 235, 0.95);
+}

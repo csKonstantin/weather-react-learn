@@ -1,0 +1,23 @@
+@import 'reset';
+@import 'vars';
+@import 'btn';
+
+html,
+body,
+#root {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  font-family: var(--font-general);
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+  -webkit-tap-highlight-color: transparent;
+}

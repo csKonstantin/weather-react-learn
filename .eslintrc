@@ -1,0 +1,16 @@
+{
+  "extends": ["react-app"],
+  "rules": {
+    "semi": [2, "never"],
+    "max-len": ["error", 120, { "ignoreStrings": true }],
+    "no-unused-vars": "off"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.stories.*"],
+      "rules": {
+        "import/no-anonymous-default-export": "off"
+      }
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+:root {
+  --btnDefaultColor: var(--color-white);
+  --btnDefaultBg: var(--color-primary);
+  --btnDefaultBorderColor: var(--color-primary);
+  --btnIconColor: var(--color-white);
+  --btnOutlineBg: var(--color-white);
+  --btnOutlineColor: var(--color-primary);
+  --btnOutlineBorderColor: var(--color-primary);
+  --btnOutlineErrorBg: var(--color-white);
+  --btnOutlineErrorColor: var(--color-error);
+  --btnOutlineErrorBorderColor: var(--color-error);
+  --btnLinkColor: var(--color-primary);
+}
+html[theme='dark'] {
+  --btnOutlineBg: #242424;
+  --btnOutlineErrorBg: #242424;
+}
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: none;
+  font-family: var(--font-general);
+  font-synthesis: none;
+  -moz-font-feature-settings: 'kern';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  direction: ltr;
+  text-align: center;
+  outline: none;
+  font-size: 1rem;
+  font-weight: 400;
+  text-decoration: none;
+  backface-visibility: hidden;
+  transition: transform var(--timing-default) linear;
+  cursor: pointer;
+
+  &:active {
+    transform: scale(0.95);
+  }
+  &:focus {
+    outline: none;
+  }
+  &:focus-visible {
+    outline: 5px auto -webkit-focus-ring-color;
+  }
+
+  &--disabled,
+  &[disabled] {
+    pointer-events: none;
+    opacity: 0.3;
+  }
+
+  &--default {
+    padding: 0 20px;
+    color: var(--btnDefaultColor);
+    font-size: 16px;
+    line-height: 44px;
+    font-weight: 600;
+    background: var(--btnDefaultBg);
+    border: 1px solid var(--btnDefaultBorderColor);
+  }
+
+  &--outline {
+    color: var(--btnOutlineColor);
+    background: var(--btnOutlineBg);
+    border: 1px solid var(--btnOutlineBorderColor);
+  }
+
+  &--outline-error {
+    color: var(--btnOutlineErrorColor);
+    background: var(--btnOutlineErrorBg);
+    border: 1px solid var(--btnOutlineErrorBorderColor);
+  }
+
+  &--sm {
+    padding: 5px 20px;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 600;
+    border-radius: 3px;
+  }
+
+  &--rounded {
+    border-radius: 8px;
+  }
+
+  &--icon {
+    padding: 4px;
+    color: var(--btnIconColor);
+    line-height: 24px;
+  }
+
+  &--link {
+    color: var(--btnLinkColor);
+    font-weight: 600;
+    line-height: inherit;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

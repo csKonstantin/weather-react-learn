@@ -21,3 +21,7 @@ html {
   box-sizing: inherit;
   -webkit-tap-highlight-color: transparent;
 }
+
+.error {
+  color: var(--color-error);
+}

@@ -1,0 +1,12 @@
+.weather-container {
+  display: flex;
+  overflow-y: auto;
+
+  &__list {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    overflow: hidden;
+  }
+}

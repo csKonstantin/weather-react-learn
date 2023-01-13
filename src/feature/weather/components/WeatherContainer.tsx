@@ -1,14 +1,16 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useState } from 'react'
 import Layout from '../../../layout/Layout'
-import { getWeather } from '../weather.api'
+import { getWeather, WeatherEntry } from '../weather.api'
+import WeatherItemView from './WeatherItemView'
+import './WeatherContainer.scss'
 
 export default function WeatherContainer() {
-  const [data, setData] = useState(null)
+  const [data, setData] = useState<WeatherEntry[] | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
   const dataInfo = useMemo(() => data ? JSON.stringify(data, null, 2) : null, [data])
-  const iconSrc = useMemo(() => data && `http://openweathermap.org/img/wn/${data?.weather[0].icon}@2x.png`, [data])
+  //const iconSrc = useMemo(() => data && `http://openweathermap.org/img/wn/${data?.weather[0].icon}@2x.png`, [data])
 
   useEffect(() => {
     setError(null)
@@ -16,11 +18,10 @@ export default function WeatherContainer() {
 
     getWeather()
       .then((result) => {
-        console.warn('WEATHER RESULT', result)
-        setData(result.data)
+        setData(result)
+        console.warn(result)
       })
       .catch((error) => {
-        console.warn('WEATHER ERROR', error)
         setError(error.message)
       })
       .then(() => {
@@ -29,10 +30,9 @@ export default function WeatherContainer() {
   }, [])
 
   return (
-    <Layout>
+    <Layout className="weather-container">
       {loading && <div>Loading...</div> }
-      {iconSrc && <img src={iconSrc} />}
-      {dataInfo && !loading && <pre>{dataInfo}</pre>}
+      <div className="weather-container__list">{data && data.map(entry => <WeatherItemView { ...entry } />)}</div>
       {error && <div className="error">{error}</div>}
     </Layout>
   )

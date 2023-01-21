@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'connected-react-router'
 import 'react-app-polyfill/stable'
@@ -8,15 +8,16 @@ import { store } from './core/store'
 import history from './core/router'
 import '../src/assets/styles/main.scss'
 
-if (module.hot) module.hot.accept()
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+)
 
-ReactDOM.render(
+root.render(
   <React.StrictMode>
     <Provider store={store}>
       <ConnectedRouter history={history}>
         <App />
       </ConnectedRouter>
     </Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 )

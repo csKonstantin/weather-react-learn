@@ -1,0 +1,20 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+
+  &__navbar {
+    display: flex;
+    gap: var(--padding-default);
+
+    &-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--padding-default);
+    }
+  }
+
+  &__body {
+    padding: var(--padding-default);
+  }
+}

@@ -1,8 +1,8 @@
-import './WeatherItemView.scss'
+import './ForecastItemView.scss'
 import { WeatherEntry } from '../weather.api'
 
 
-export default function WeatherItemView ({ icon, description, temp, tempMin, tempMax, displayTime }: WeatherEntry) {
+export default function ForecastItemView ({ icon, description, temp, tempMin, tempMax, displayTime }: WeatherEntry) {
   return (
     <div className='weather-entry'>
       <div>{displayTime}</div>

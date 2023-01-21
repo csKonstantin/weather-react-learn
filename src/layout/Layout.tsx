@@ -2,6 +2,10 @@ import React, { ReactNode } from 'react'
 import classnames from 'classnames'
 import { NavLink } from 'react-router-dom'
 import './Layout.scss'
+import Container from 'react-bootstrap/Container'
+import Nav from 'react-bootstrap/Nav'
+import Navbar from 'react-bootstrap/Navbar'
+import { LinkContainer } from 'react-router-bootstrap'
 
 export interface LayoutProps {
   children?: ReactNode,
@@ -14,10 +18,15 @@ const Layout: React.FC<LayoutProps> = ({ className, children }) => {
       'layout': true,
       [className]: className
     })}>
-      <div className="layout__navbar">
-        <NavLink to="/" className="layout__navbar-item">Search</NavLink>
-        <NavLink to="/history" className="layout__navbar-item">History</NavLink>
-      </div>
+      <Navbar bg="dark" variant="dark">
+        <Container>
+          <LinkContainer to='/'><Navbar.Brand>Weather App</Navbar.Brand></LinkContainer>
+          <Nav className="me-auto">
+            <LinkContainer to='/'><Nav.Link>Search</Nav.Link></LinkContainer>
+            <LinkContainer to='/history'><Nav.Link>History</Nav.Link></LinkContainer>
+          </Nav>
+        </Container>
+      </Navbar>
       <div className="layout__body">{children}</div>
     </div>
   )

@@ -7,6 +7,7 @@ import App from './layout/App'
 import { store } from './core/store'
 import history from './core/router'
 import '../src/assets/styles/main.scss'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

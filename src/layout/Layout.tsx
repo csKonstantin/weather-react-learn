@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react'
 import classnames from 'classnames'
-import { NavLink } from 'react-router-dom'
 import './Layout.scss'
 import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'

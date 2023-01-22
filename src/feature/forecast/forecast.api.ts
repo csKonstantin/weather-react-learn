@@ -1,16 +1,24 @@
+import { EntityId } from '@reduxjs/toolkit'
 import moment from 'moment'
 import OpenWeatherMap from 'openweathermap-ts'
 import { ThreeHourResponse } from 'openweathermap-ts/dist/types'
 import { response } from 'express'
 
+// export const GET_WEATHER_DEFAULT_PARAMS = {
+//   // Minsk default
+//   // lat: 53.901525,
+//   // lon: 27.554245,
+//   q: 'Minsk',
+//   appid: '09f1bb52d69d32208b03117eb9c45a1e', // https://home.openweathermap.org/api_keys
+//   units: 'metric',
+//   lang: 'ru'
+// }
+
 export const GET_WEATHER_DEFAULT_PARAMS = {
   // Minsk default
   // lat: 53.901525,
   // lon: 27.554245,
-  q: 'Minsk',
-  appid: '09f1bb52d69d32208b03117eb9c45a1e', // https://home.openweathermap.org/api_keys
-  units: 'metric',
-  lang: 'ru'
+  cityName: 'Minsk',
 }
 
 const openWeather = new OpenWeatherMap({
@@ -52,7 +60,8 @@ type WeatherResponseItem = {
   snow?: undefined;
 }
 
-export interface WeatherEntry {
+export interface ForecastEntity {
+  id: EntityId,
   timestamp: number,
   temp: number,
   tempMin: number,
@@ -64,7 +73,7 @@ export interface WeatherEntry {
   snow?: boolean,
 }
 
-export const normalizeWeatherResponse = (response: ThreeHourResponse): Array<WeatherEntry> =>
+export const normalizeForecastResponse = (response: ThreeHourResponse, query: string): Array<ForecastEntity> =>
   response.list.map(item => {
     const {
       dt: timestamp,
@@ -76,9 +85,10 @@ export const normalizeWeatherResponse = (response: ThreeHourResponse): Array<Wea
       weather
     } = item
 
-    const icon = item.weather[0].icon
+    const icon = weather[0].icon
 
     return {
+      id: `${query}${timestamp}`,
       timestamp,
       temp,
       tempMax,
@@ -86,20 +96,16 @@ export const normalizeWeatherResponse = (response: ThreeHourResponse): Array<Wea
       icon: icon && `http://openweathermap.org/img/wn/${icon}@2x.png`,
       displayTime: moment.unix(timestamp).format('LLL'),
       description: '',
+      historyId: query,
     }
   })
 
-export const getWeather = async (params?: any): Promise<Array<WeatherEntry>> => {
-  const urlParams = params ?
+export const getWeatherByCityName = async (params?: any): Promise<ForecastEntity[]> => {
+  const apiParams = params ?
     Object.assign({}, GET_WEATHER_DEFAULT_PARAMS, params) :
     GET_WEATHER_DEFAULT_PARAMS
 
-  const queryString = new URLSearchParams(urlParams).toString()
-
-  const url = `https://api.openweathermap.org/data/2.5/weather?${queryString}`
-
-  return openWeather.getThreeHourForecastByCityName({ cityName: 'Minsk' })
-    .then(normalizeWeatherResponse)
-  //return api.get(url)
+  return openWeather.getThreeHourForecastByCityName(apiParams)
+    .then((response) => normalizeForecastResponse(response, params.cityName))
 }
 

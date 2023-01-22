@@ -1,25 +1,30 @@
+import { ForecastState } from './../feature/forecast/forecast.types'
+import { UiState } from './../feature/ui/ui.types'
+import { HistoryState } from './../feature/history/history.types'
 import { configureStore, Store } from '@reduxjs/toolkit'
-import { routerMiddleware as createRouterMiddleware, connectRouter } from 'connected-react-router'
 import createSagaMiddleware from 'redux-saga'
-import history from './router'
 import rootSaga from './rootSaga'
-import { LocationState } from 'history'
+import historyReducer from '../feature/history/history.reducer'
+import uiReducer from '../feature/ui/ui.reducer'
+import forecastReducer from '../feature/forecast/forecast.reducer'
 
 const sagaMiddleware = createSagaMiddleware()
-const routerMiddleware = createRouterMiddleware(history)
 
 export const store: Store<{
-  router: any,
+  history: HistoryState,
+  forecast: ForecastState,
+  ui: UiState,
 }> = configureStore({
   reducer: {
-    router: connectRouter<LocationState>(history),
+    history: historyReducer,
+    forecast: forecastReducer,
+    ui: uiReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false
     }).prepend(
       sagaMiddleware,
-      routerMiddleware,
     ),
   devTools: true,
 })

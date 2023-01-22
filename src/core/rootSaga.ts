@@ -1,7 +1,10 @@
-import { all } from 'redux-saga/effects'
+import { all, fork } from 'redux-saga/effects'
+import { rootHistorySaga } from '../feature/history/history.saga'
 
 function* rootSaga() {
-  yield all([])
+  yield all([
+    fork(rootHistorySaga),
+  ])
 }
 
 export default rootSaga

@@ -94,7 +94,7 @@ export const normalizeForecastResponse = (response: ThreeHourResponse, query: st
       tempMax,
       tempMin,
       icon: icon && `http://openweathermap.org/img/wn/${icon}@2x.png`,
-      displayTime: moment.unix(timestamp).format('LLL'),
+      displayTime: moment.unix(timestamp).format('MMMM DD, HH:mm'),
       description: '',
       historyId: query,
     }

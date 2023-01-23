@@ -3,4 +3,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  &__img {
+    &.card-img {
+      width: auto;
+    }
+  }
 }

@@ -19,7 +19,7 @@ const Layout: React.FC<LayoutProps> = ({ className, children }) => {
     })}>
       <Navbar bg="dark" variant="dark">
         <Container>
-          <LinkContainer to='/'><Navbar.Brand>Weather App</Navbar.Brand></LinkContainer>
+          <LinkContainer to='/'><Navbar.Brand>WeatherApp</Navbar.Brand></LinkContainer>
           <Nav className="me-auto">
             <LinkContainer to='/'><Nav.Link>Search</Nav.Link></LinkContainer>
             <LinkContainer to='/history'><Nav.Link>History</Nav.Link></LinkContainer>

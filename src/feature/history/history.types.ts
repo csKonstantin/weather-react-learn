@@ -9,5 +9,4 @@ export interface HistoryEntity {
 export interface HistoryState {
   entities: Record<EntityId, HistoryEntity>
   ids: EntityId[]
-  query: string
 }

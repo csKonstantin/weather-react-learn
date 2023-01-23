@@ -5,7 +5,7 @@ import HistoryContainer from '../feature/history/components/HistoryContainer'
 export default function App() {
   return (
     <Switch>
-      <Route path="/history">
+      <Route path={[ '/history/:id', '/history']}>
         <HistoryContainer />
       </Route>
       <Route path="/">

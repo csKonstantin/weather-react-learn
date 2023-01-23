@@ -1,30 +1,38 @@
+import { RootState } from './../../core/store'
 import { ForecastEntity } from './forecast.api'
-import { createSlice, createEntityAdapter } from '@reduxjs/toolkit'
+import { createSlice, createAction, createEntityAdapter } from '@reduxjs/toolkit'
 import { ForecastState } from './forecast.types'
-import { historyActions } from '../history/history.reducer'
 
 export const initialState: ForecastState = {
   entities: {},
   ids: [],
+  query: '',
 }
 
-const NAMESPACE = 'history'
 const adapter = createEntityAdapter<ForecastEntity>()
+
+const NAMESPACE = 'forecast'
 
 export const slice = createSlice({
   name: NAMESPACE,
   initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-		builder
-			.addCase(historyActions.forecastReceived, (state, { payload: { forecast }}) => {
-				adapter.upsertMany(state, forecast)
-			})
-		}
+  reducers: {
+    setQuery(state: ForecastState, { payload: query}) {
+      state.query = query
+    },
+    forecastReceived(state: ForecastState, { payload: { forecast }}) {
+      adapter.upsertMany(state, forecast)
+    },
+  },
 })
 
 export const forecastActions = {
   ...slice.actions,
+	refreshForecastByCityName: createAction<{ cityName: string }>(`${NAMESPACE}/refreshForecastByCityName`),
 }
+
+export const forecastEntitySelectors = adapter.getSelectors<RootState>(
+  (state) => state.forecast,
+)
 
 export default slice.reducer

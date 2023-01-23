@@ -1,31 +1,35 @@
+import { forecastActions } from './../forecast/forecast.reducer'
 import { createSlice, createAction, createEntityAdapter } from '@reduxjs/toolkit'
 import { HistoryState, HistoryEntity } from './history.types'
+import { RootState } from '../../core/store'
 
 export const initialState: HistoryState = {
   entities: {},
   ids: [],
-  query: '',
 }
 
-const HISTORY_NAMESPACE = 'history'
+const NAMESPACE = 'history'
 const adapter = createEntityAdapter<HistoryEntity>()
 
 export const slice = createSlice({
-  name: HISTORY_NAMESPACE,
+  name: NAMESPACE,
   initialState,
-  reducers: {
-    forecastReceived(state: HistoryState, { payload: { id, query, forecast }}) {
-      adapter.upsertOne(state, { id, query, forecast: forecast.map(f => f.id)})
-    },
-    setQuery(state: HistoryState, { payload: query}) {
-      state.query = query
-    },
-  },
+  reducers: {},
+  extraReducers: (builder) => {
+		builder
+			.addCase(forecastActions.forecastReceived, (state, { payload: { id, query, forecast }}) => {
+        adapter.upsertOne(state, { id, query, forecast: forecast.map(f => f.id)})
+			})
+		}
 })
 
 export const historyActions = {
   ...slice.actions,
-	refreshForecastByCityName: createAction<{ cityName: string }>(`${HISTORY_NAMESPACE}/refreshForecastByCityName`),
+	refreshForecastByCityName: createAction<{ cityName: string }>(`${NAMESPACE}/refreshForecastByCityName`),
 }
+
+export const historyEntitySelectors = adapter.getSelectors<RootState>(
+  (state) => state.history,
+)
 
 export default slice.reducer

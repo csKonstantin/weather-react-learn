@@ -1,9 +1,9 @@
 import { all, fork } from 'redux-saga/effects'
-import { rootHistorySaga } from '../feature/history/history.saga'
+import { rootForecastSaga } from '../feature/forecast/forecast.saga'
 
 function* rootSaga() {
   yield all([
-    fork(rootHistorySaga),
+    fork(rootForecastSaga),
   ])
 }
 

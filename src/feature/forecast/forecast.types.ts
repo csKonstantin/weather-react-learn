@@ -17,4 +17,5 @@ export interface ForecastEntity {
 export interface ForecastState {
   entities: Record<EntityId, ForecastEntity>
   ids: EntityId[]
+  query: string
 }

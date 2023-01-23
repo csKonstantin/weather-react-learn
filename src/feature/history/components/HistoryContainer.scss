@@ -1,4 +1,15 @@
 .history-container {
   display: flex;
-  flex-direction: column;
+
+  &__query-list {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  &__forecast {
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+  }
 }

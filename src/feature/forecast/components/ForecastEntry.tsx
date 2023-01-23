@@ -1,9 +1,9 @@
 import { ForecastEntity } from '../forecast.types'
-import './ForecastItemView.scss'
+import './ForecastEntry.scss'
 
-export default function ForecastItemView ({ icon, description, temp, tempMin, tempMax, displayTime }: ForecastEntity) {
+export default function ForecastEntry ({ icon, description, temp, tempMin, tempMax, displayTime }: ForecastEntity) {
   return (
-    <div className='weather-entry'>
+    <div className='forecast-entry'>
       <div>{displayTime}</div>
       <img src={icon} />
       <div>{description}</div>

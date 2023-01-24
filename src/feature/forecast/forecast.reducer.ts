@@ -17,22 +17,32 @@ export const slice = createSlice({
   name: NAMESPACE,
   initialState,
   reducers: {
-    setQuery(state: ForecastState, { payload: query}) {
+    setQuery(state: ForecastState, { payload: query }) {
       state.query = query
     },
-    forecastReceived(state: ForecastState, { payload: { forecast }}) {
+    forecastReceived(state: ForecastState, { payload: { forecast } }) {
       adapter.upsertMany(state, forecast)
+    },
+    test(state: ForecastState) {
+      adapter.updateOne(state, {
+        id: "Minsk1674572400",
+        changes: {
+          description: 'Vasya',
+          snow: true,
+          rain: true,
+        }
+      })
     },
   },
 })
 
 export const forecastActions = {
   ...slice.actions,
-	refreshForecastByCityName: createAction<{ cityName: string }>(`${NAMESPACE}/refreshForecastByCityName`),
+  refreshForecastByCityName: createAction<{ cityName: string; force?: boolean }>(
+    `${NAMESPACE}/refreshForecastByCityName`
+  ),
 }
 
-export const forecastEntitySelectors = adapter.getSelectors<RootState>(
-  (state) => state.forecast,
-)
+export const forecastEntitySelectors = adapter.getSelectors<RootState>((state) => state.forecast)
 
 export default slice.reducer

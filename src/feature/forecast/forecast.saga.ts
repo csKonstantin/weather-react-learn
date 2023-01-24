@@ -8,14 +8,14 @@ import { StatusType, uiActions } from "../ui"
 import { forecastActions } from "./forecast.reducer"
 
 export function* refreshForecastByCityName({
-  payload: { cityName },
+  payload: { cityName, force },
 }: ReturnType<typeof forecastActions.refreshForecastByCityName>): Generator<StrictEffect, any, any> {
   const statusKey = cityName
 
   try {
     const cashed = yield select(selectQueryForecast)
 
-    if (cashed.length) {
+    if (!force && cashed.length) {
       yield put(uiActions.setTypedStatus({ key: statusKey, type: StatusType.Success }))
       return
     }

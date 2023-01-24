@@ -2,22 +2,8 @@ import { EntityId } from '@reduxjs/toolkit'
 import moment from 'moment'
 import OpenWeatherMap from 'openweathermap-ts'
 import { ThreeHourResponse } from 'openweathermap-ts/dist/types'
-import { response } from 'express'
-
-// export const GET_WEATHER_DEFAULT_PARAMS = {
-//   // Minsk default
-//   // lat: 53.901525,
-//   // lon: 27.554245,
-//   q: 'Minsk',
-//   appid: '09f1bb52d69d32208b03117eb9c45a1e', // https://home.openweathermap.org/api_keys
-//   units: 'metric',
-//   lang: 'ru'
-// }
 
 export const GET_WEATHER_DEFAULT_PARAMS = {
-  // Minsk default
-  // lat: 53.901525,
-  // lon: 27.554245,
   cityName: 'Minsk',
 }
 
@@ -58,7 +44,110 @@ type WeatherResponseItem = {
   dt_txt: string;
   rain?: undefined;
   snow?: undefined;
-}
+} | {
+  dt: number;
+  main: {
+      temp: number;
+      temp_min: number;
+      temp_max: number;
+      pressure: number;
+      sea_level: number;
+      grnd_level: number;
+      humidity: number;
+      temp_kf: number;
+  };
+  weather: {
+      id: number;
+      main: string;
+      description: string;
+      icon: string;
+  }[];
+  clouds: {
+      all: number;
+  };
+  wind: {
+      speed: number;
+      deg: number;
+  };
+  rain: {
+      '3h': number;
+  };
+  sys: {
+      pod: string;
+  };
+  dt_txt: string;
+  snow?: undefined;
+} | {
+  dt: number;
+  main: {
+      temp: number;
+      temp_min: number;
+      temp_max: number;
+      pressure: number;
+      sea_level: number;
+      grnd_level: number;
+      humidity: number;
+      temp_kf: number;
+  };
+  weather: {
+      id: number;
+      main: string;
+      description: string;
+      icon: string;
+  }[];
+  clouds: {
+      all: number;
+  };
+  wind: {
+      speed: number;
+      deg: number;
+  };
+  rain: {
+      '3h': number;
+  };
+  snow: {
+      '3h': number;
+  };
+  sys: {
+      pod: string;
+  };
+  dt_txt: string;
+} | {
+  dt: number;
+  main: {
+      temp: number;
+      temp_min: number;
+      temp_max: number;
+      pressure: number;
+      sea_level: number;
+      grnd_level: number;
+      humidity: number;
+      temp_kf: number;
+  };
+  weather: {
+      id: number;
+      main: string;
+      description: string;
+      icon: string;
+  }[];
+  clouds: {
+      all: number;
+  };
+  wind: {
+      speed: number;
+      deg: number;
+  };
+  rain: {
+      '3h'?: undefined;
+  };
+  snow: {
+      '3h'?: undefined;
+  };
+  sys: {
+      pod: string;
+  };
+  dt_txt: string;
+};
 
 export interface ForecastEntity {
   id: EntityId,
@@ -82,8 +171,10 @@ export const normalizeForecastResponse = (response: ThreeHourResponse, query: st
         temp_max: tempMax,
         temp_min: tempMin
       },
-      weather
-    } = item
+      weather,
+      rain,
+      snow,
+    } = item as WeatherResponseItem
 
     const icon = weather[0].icon
 
@@ -97,6 +188,8 @@ export const normalizeForecastResponse = (response: ThreeHourResponse, query: st
       displayTime: moment.unix(timestamp).format('MMMM DD, HH:mm'),
       description: '',
       historyId: query,
+      rain: !!rain,
+      snow: !!snow,
     }
   })
 

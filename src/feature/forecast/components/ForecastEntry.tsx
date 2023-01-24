@@ -14,9 +14,9 @@ export default function ForecastEntry({
   snow,
 }: ForecastEntity) {
   return (
-    <Card>
+    <Card className="forecast-entry">
       <Card.Header as="h5">{displayTime}</Card.Header>
-      <Card.Body className="forecast-entry">
+      <Card.Body className="forecast-entry__body">
         <Card.Img className="forecast-entry__img" src={icon} />
         <Card.Title>{temp}°C</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">

@@ -1,8 +1,12 @@
 .forecast-entry {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  min-width: var(--grid-item-width);
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 
   &__img {
     &.card-img {
@@ -10,3 +14,5 @@
     }
   }
 }
+
+

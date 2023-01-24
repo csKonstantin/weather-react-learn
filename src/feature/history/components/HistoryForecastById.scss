@@ -1,7 +1,8 @@
 .history-forecast {
   flex: 1;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  gap: var(--padding-default);
   overflow: hidden;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(calc(var(--grid-item-width)), 1fr));
 }

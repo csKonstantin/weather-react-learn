@@ -22,7 +22,12 @@ export function* refreshForecastByCityName({
 
     yield put(uiActions.setTypedStatus({ key: statusKey, type: StatusType.Pending }))
 
-    const forecastItems: ForecastEntity[] = yield call(getWeatherByCityName, { cityName })
+    const { data: forecastItems, error } = yield call(getWeatherByCityName, { cityName })
+
+    if (error) {
+      yield put(uiActions.setTypedStatus({ key: statusKey, type: StatusType.Error, error }))
+      return
+    }
 
     logger.debug('getWeatherByCityName forecastItems:', forecastItems)
 

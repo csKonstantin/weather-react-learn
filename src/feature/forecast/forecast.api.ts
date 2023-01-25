@@ -1,3 +1,4 @@
+import { ApiResponse, ApiResponseStrict } from './../../core/types'
 import { EntityId } from '@reduxjs/toolkit'
 import moment from 'moment'
 import OpenWeatherMap from 'openweathermap-ts'
@@ -193,12 +194,17 @@ export const normalizeForecastResponse = (response: ThreeHourResponse, query: st
     }
   })
 
-export const getWeatherByCityName = async (params?: any): Promise<ForecastEntity[]> => {
+export const getWeatherByCityName = async (params?: any): Promise<ApiResponse<ForecastEntity[]>> => {
   const apiParams = params ?
     Object.assign({}, GET_WEATHER_DEFAULT_PARAMS, params) :
     GET_WEATHER_DEFAULT_PARAMS
 
   return openWeather.getThreeHourForecastByCityName(apiParams)
-    .then((response) => normalizeForecastResponse(response, params.cityName))
+    .then((response) => {
+      if (Number(response.cod) === 404) {
+        return { error: 'City wasn\'t found' }
+      }
+      return { data: normalizeForecastResponse(response, params.cityName) }
+    })
 }
 

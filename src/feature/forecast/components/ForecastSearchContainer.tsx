@@ -44,6 +44,7 @@ export default function ForecastSearchContainer() {
         </InputGroup>
       </Form.Group>
       {status?.type === StatusType.Pending && <MainLoader />}
+      {status?.type === StatusType.Error && <span className="text-danger">{status.error}</span> }
       {query && <HistoryForecastById id={query} className="forecast-search-container__list" /> }
     </Layout>
   )

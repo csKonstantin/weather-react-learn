@@ -4,8 +4,19 @@ import { HistoryState, HistoryEntity } from './history.types'
 import { RootState } from '../../core/store'
 
 export const initialState: HistoryState = {
-  entities: {},
-  ids: [],
+  entities: {
+    'Minsk': {
+      id: 'Minsk',
+      query: 'Minsk',
+      forecast: [],
+    },
+    'Moscow': {
+      id: 'Moscow',
+      query: 'Moscow',
+      forecast: [],
+    },
+  },
+  ids: ['Minsk', 'Moscow'],
 }
 
 const NAMESPACE = 'history'

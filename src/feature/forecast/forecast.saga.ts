@@ -1,7 +1,7 @@
 import { selectQueryForecast } from './forecast.selectors'
 import { ForecastEntity } from './../forecast/forecast.api'
 import { StrictEffect } from "@redux-saga/types"
-import { all, call, put, select, takeEvery } from "redux-saga/effects"
+import { all, call, delay, put, select, takeEvery } from "redux-saga/effects"
 import logger from "../../core/logger"
 import { getWeatherByCityName } from "../forecast/forecast.api"
 import { StatusType, uiActions } from "../ui"
@@ -16,6 +16,7 @@ export function* refreshForecastByCityName({
     const cashed = yield select(selectQueryForecast)
 
     if (!force && cashed.length) {
+      yield delay(100)
       yield put(uiActions.setTypedStatus({ key: statusKey, type: StatusType.Success }))
       return
     }

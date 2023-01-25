@@ -1,4 +1,4 @@
-import { ApiResponse, ApiResponseStrict } from './../../core/types'
+import { ApiResponse } from './../../core/types'
 import { EntityId } from '@reduxjs/toolkit'
 import moment from 'moment'
 import OpenWeatherMap from 'openweathermap-ts'
